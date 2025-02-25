@@ -9,22 +9,54 @@
       <button (click)="searchUsers()">Search</button>
     </div>
     <ul class="chat-list">
-      <li *ngFor="let chat of listRoomChat" (click)="selectChat(chat)">
-        {{ chat.user.userName }}
+      <li
+        *ngFor="let chat of listRoomChat"
+        (click)="selectChat(chat)"
+        [class.selected]="selectedUser.email === chat.user.email"
+      >
+        <img
+          [src]="chat.user.avatarUrl"
+          alt="User Avatar"
+          class="avatar-room"
+        />
+        <div class="chat-info-room">
+          <div class="chat-header-room">
+            <span class="user-name-room">{{ chat.user.userName }}</span>
+            <span
+              class="unread-badge"
+              [class.hidden-chat]="
+                isNotificationForYou(
+                  chat.chatMessage.isAdmin,
+                  chat.chatMessage.isRead,
+                  chat.chatMessage.content
+                )
+              "
+            >
+              1
+            </span>
+          </div>
+          <p class="chat-content-room">
+            <span [class.hidden-chat]="isMe(chat)">Bạn: </span>
+            {{ chat.chatMessage.content }}
+          </p>
+        </div>
       </li>
     </ul>
   </div>
   <div class="main-chat">
     <div class="chat-header">
-      <h2>{{ selectedUser?.userName ?? "" }}</h2>
+      <img
+        [src]="selectedUser.avatarUrl"
+        alt="User Avatar"
+        class="avatar"
+        [class.hidden-chat]="isImage()"
+      />
+      <h2>{{ selectedUser.userName }}</h2>
     </div>
     <div #chatContainer class="chat-messages">
       @for (message of listMessChat ; track message){
       <div class="chat-message left" [class.hidden-chat]="isAdmin(message)">
-        <img
-          src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp"
-          alt="User Avatar"
-        />
+        <img [src]="selectedUser.avatarUrl" alt="User Avatar" />
         <div class="message-content">
           <p>{{ message.content }}</p>
         </div>
@@ -43,6 +75,8 @@
         [(ngModel)]="newMessage"
         placeholder="Type a message..."
         (keydown.enter)="sendMessage(newMessage)"
+        (focus)="handleInputFocus()"
+        #inputFocus
       />
       <button (click)="sendMessage(newMessage)">Send</button>
     </div>

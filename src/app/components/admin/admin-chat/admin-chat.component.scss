@@ -6,7 +6,7 @@
 }
 
 .sidebar {
-  width: 25%;
+  width: 30%;
   background-color: #f0f0f0;
   border-right: 1px solid #ccc;
   overflow-y: auto;
@@ -30,7 +30,7 @@
 }
 
 .main-chat {
-  width: 75%;
+  width: 70%;
   display: flex;
   flex-direction: column;
 }
@@ -102,6 +102,20 @@
 }
 
 // Chat body
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Làm tròn avatar */
+  object-fit: cover; /* Giữ tỷ lệ hình ảnh */
+  border: 2px solid #ddd;
+}
 
 .chat-message {
   display: flex;
@@ -139,6 +153,78 @@
     }
   }
 }
+.chat-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.chat-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Khoảng cách giữa avatar và nội dung */
+  padding: 15px 12px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+  border-bottom: 1px solid #ddd;
+  border-radius: 8px; /* Bo góc nhẹ */
+}
+
+.chat-list li:hover {
+  background-color: #e0e0e0; /* Màu nền khi hover */
+}
+
+.chat-list li.selected {
+  background-color: #d6d6d6; /* Màu nền khi chọn */
+  font-weight: bold;
+}
+
+.avatar-room {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+.chat-info-room {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.chat-header-room {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-name-room {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 230px;
+}
+
+.chat-time-room {
+  font-size: 12px;
+  color: #888;
+}
+
+.chat-content-room {
+  font-size: 14px;
+  color: #666;
+  margin: 4px 0 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 230px;
+}
 
 .message-content {
   padding: 10px 15px;
@@ -148,5 +234,19 @@
 }
 
 .hidden-chat {
-  display: none;
+  display: none !important;
+}
+
+.unread-badge {
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
 }
